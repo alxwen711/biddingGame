@@ -12,13 +12,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MainPanel extends JPanel implements MouseListener {
-    public void paintComponent(Graphics g){
 
+
+    private final Screen curScreen;
+
+    public MainPanel(Screen s){
+        this.curScreen = s;
+        this.setLayout(null);
+    }
+
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(null,0,0,Screen.width,Screen.height,null);
     }
 
     @Override
     public void paint(Graphics g){
-
+        super.paint(g);
+        g.drawString("test",Screen.width/10,Screen.height/10);
     }
 
     @Override
