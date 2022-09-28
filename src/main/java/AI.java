@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.lang.Math.*;
 public class AI {
     //class variables
 
@@ -25,9 +25,13 @@ public class AI {
      * @param p2_moves history of player 2's moves
      * @return int value of the bid determined
      */
-    public int config(int player, int pos, int[] p1_moves, int[] p2_moves) {
-
-        return bid(0,0,0, p1_moves, p2_moves, this.tb);
+    public int placeBid(int player, int pos, int[] p1_moves, int[] p2_moves) {
+        if (player == 1) {
+            return bid(pos, p1_money, p2_money, p1_moves, p2_moves, this.tb);
+        }
+        else { //playing player two, adjust accordingly
+            return bid(10-pos, p2_money, p1_money, p2_moves, p1_moves, !this.tb);
+        }
     }
 
     /**
@@ -41,7 +45,13 @@ public class AI {
      * @return int value of the bid determined
      */
     private int bid(int steps, int pMoney, int oMoney, int[] pMoves, int[] oMoves, boolean tb) {
-        return 5;
+        if (steps == 1) //trivial case where player is 1 step away
+            return pMoney;
+        if (steps == 9) //trivial case where opp is 1 step away
+            return Math.min(oMoney,pMoney);
+        if (pMoney == 0) //trivial case where no money is left
+            return 0;
+        return Math.max(pMoney/5,1); //no cases above solved, return 20% rounded down or 1
     }
 
     /**
@@ -58,11 +68,30 @@ public class AI {
         return ans;
     }
 
+    /**
+     * subtracts money from the player who won the bid
+     * @param player player that won the bid
+     * @param bid amount of money bid
+     */
     private void subtractBid(int player, int bid) {
         if (player == 1) {this.p1_money -= bid;}
         else {this.p2_money -= bid;}
     }
 
+    /**
+     * function to determine who has the tiebreaker
+     * @return 1 if player 1 has the tiebreaker, 2 otherwise
+     */
+    private int playerTB() {
+        if (tb)
+            return 1;
+        else
+            return 2;
+    }
+
+    /**
+     * Swap tiebreaker to other player, occurs when both players have the same bid
+     */
     private void swapTB() {
         if (this.tb) {tb = false;}
         else {tb = true;}
