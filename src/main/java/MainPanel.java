@@ -15,10 +15,28 @@ public class MainPanel extends JPanel implements MouseListener {
 
 
     private final Screen curScreen;
-
+    private final JButton start;
+    private final JButton upArrow;
+    private final JButton downArrow;
     public MainPanel(Screen s){
         this.curScreen = s;
         this.setLayout(null);
+
+        //start button
+        start = new JButton("start");
+        start.setBounds(250,400,100,100);
+        start.addMouseListener(this);
+        this.add(start);
+
+        //arrow buttons
+        upArrow = new JButton("+1");
+        downArrow = new JButton("-1");
+        upArrow.setBounds(700,400,150,40);
+        downArrow.setBounds(700,440,150,40);
+        upArrow.addMouseListener(this);
+        downArrow.addMouseListener(this);
+        this.add(upArrow);
+        this.add(downArrow);
     }
 
     public void paintComponent(Graphics g){
@@ -34,7 +52,10 @@ public class MainPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        /*
+        e.getSource() = upArrow,downArrow,start, handle each case as needed
+        curScreen.changePanel(new _Panel(curScreen));
+         */
     }
 
     @Override
