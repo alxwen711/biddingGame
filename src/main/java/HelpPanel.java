@@ -10,16 +10,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-public class MainPanel extends JPanel implements MouseListener {
-
-
+//currently a copy of MainPanel, adjust as needed
+public class HelpPanel extends JPanel implements MouseListener {
     private final Screen curScreen;
     private final JButton start;
     private final JButton help;
     private final JButton upArrow;
     private final JButton downArrow;
-    public MainPanel(Screen s){
+    public HelpPanel(Screen s){
         this.curScreen = s;
         this.setLayout(null);
 
