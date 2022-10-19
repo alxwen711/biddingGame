@@ -13,37 +13,40 @@ import javax.swing.JPanel;
 
 public class MainPanel extends JPanel implements MouseListener {
 
-
+    //non button parameters
     private final Screen curScreen;
+    private final buttonFactory bFactory;
+    public int coinAmount;
+
+    //buttons
     private final JButton start;
     private final JButton help;
-    private final JButton upArrow;
-    private final JButton downArrow;
+    private final JButton upOne;
+    private final JButton downOne;
+    private final JButton upTen;
+    private final JButton downTen;
+
     public MainPanel(Screen s){
         this.curScreen = s;
-        this.setLayout(null);
+        this.bFactory = new buttonFactory();
+        this.setLayout(null); //background
+        this.coinAmount = 100;
 
-        //start button
-        start = new JButton("start");
-        start.setBounds(250,400,100,100);
-        start.addMouseListener(this);
+        //create buttons
+        start = bFactory.createButton("start",250,400,100,100,this);
+        help = bFactory.createButton("help",450,400,100,100,this);
+        upOne = bFactory.createButton("+1",700,400,90,40,this);
+        downOne = bFactory.createButton("-1",700,440,90,40,this);
+        upTen = bFactory.createButton("+10",800,400,90,40,this);
+        downTen = bFactory.createButton("-10",800,440,90,40,this);
+
+        //add buttons to screen
         this.add(start);
-
-        //help button
-        help = new JButton("help");
-        help.setBounds(450,400,100,100);
-        help.addMouseListener(this);
         this.add(help);
-
-        //arrow buttons
-        upArrow = new JButton("+1");
-        downArrow = new JButton("-1");
-        upArrow.setBounds(700,400,150,40);
-        downArrow.setBounds(700,440,150,40);
-        upArrow.addMouseListener(this);
-        downArrow.addMouseListener(this);
-        this.add(upArrow);
-        this.add(downArrow);
+        this.add(upOne);
+        this.add(downOne);
+        this.add(upTen);
+        this.add(downTen);
 
     }
 
@@ -56,18 +59,31 @@ public class MainPanel extends JPanel implements MouseListener {
     public void paint(Graphics g){
         super.paint(g);
         g.drawString("test",Screen.width/10,Screen.height/10);
+        g.drawString(String.format("%d",coinAmount),600,450);
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         Object event = e.getSource();
-        if (event == upArrow) //change to increase coin count by 1
-            curScreen.changePanel(new MainPanel(curScreen));
-        else if (event == downArrow) //change to decrease coin count by 1
-            curScreen.changePanel(new MainPanel(curScreen));
+        if (event == upOne) {//change to increase coin count by 1
+            this.coinAmount += 1;
+            this.repaint();
+        }
+        else if (event == downOne) { //change to decrease coin count by 1
+            this.coinAmount -= 1;
+            this.repaint();
+        }
+        else if (event == upTen) {
+            this.coinAmount += 10;
+            this.repaint();
+        }
+        else if (event == downTen) {
+            this.coinAmount -= 10;
+            this.repaint();
+        }
         else if (event == help)
             curScreen.changePanel(new HelpPanel(curScreen));
-
         /*
         e.getSource() = upArrow,downArrow,start, handle each case as needed
         curScreen.changePanel(new _Panel(curScreen));
