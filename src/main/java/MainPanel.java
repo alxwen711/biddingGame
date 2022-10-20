@@ -58,9 +58,7 @@ public class MainPanel extends JPanel implements MouseListener {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        g.drawString("test",Screen.width/10,Screen.height/10);
         g.drawString(String.format("%d",coinAmount),600,450);
-
     }
 
     @Override

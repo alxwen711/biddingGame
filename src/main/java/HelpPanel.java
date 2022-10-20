@@ -13,35 +13,18 @@ import javax.swing.JPanel;
 //currently a copy of MainPanel, adjust as needed
 public class HelpPanel extends JPanel implements MouseListener {
     private final Screen curScreen;
-    private final JButton start;
-    private final JButton help;
-    private final JButton upArrow;
-    private final JButton downArrow;
+    private final JButton back;
+    private final buttonFactory bFactory;
     public HelpPanel(Screen s){
         this.curScreen = s;
-        this.setLayout(null);
+        this.bFactory = new buttonFactory();
+        this.setLayout(null); //background
 
-        //start button
-        start = new JButton("start");
-        start.setBounds(250,400,100,100);
-        start.addMouseListener(this);
-        this.add(start);
+        //create buttons
+        this.back = bFactory.createButton("back",50,50,120,60,this);
 
-        //help button
-        help = new JButton("help");
-        help.setBounds(450,400,100,100);
-        help.addMouseListener(this);
-        this.add(help);
-
-        //arrow buttons
-        upArrow = new JButton("+1");
-        downArrow = new JButton("-1");
-        upArrow.setBounds(700,400,150,40);
-        downArrow.setBounds(700,440,150,40);
-        upArrow.addMouseListener(this);
-        downArrow.addMouseListener(this);
-        this.add(upArrow);
-        this.add(downArrow);
+        //add buttons to screen
+        this.add(back);
 
     }
 
@@ -59,12 +42,8 @@ public class HelpPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object event = e.getSource();
-        if (event == upArrow) //change to increase coin count by 1
+        if (event == back) //change to decrease coin count by 1
             curScreen.changePanel(new MainPanel(curScreen));
-        else if (event == downArrow) //change to decrease coin count by 1
-            curScreen.changePanel(new MainPanel(curScreen));
-        else if (event == help)
-            curScreen.changePanel(new HelpPanel(curScreen));
 
         /*
         e.getSource() = upArrow,downArrow,start, handle each case as needed
