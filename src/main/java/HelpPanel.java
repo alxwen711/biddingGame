@@ -36,7 +36,6 @@ public class HelpPanel extends JPanel implements MouseListener {
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        g.drawString("test",Screen.width/10,Screen.height/10);
     }
 
     @Override

@@ -17,6 +17,7 @@ public class MainPanel extends JPanel implements MouseListener {
     private final Screen curScreen;
     private final buttonFactory bFactory;
     public int coinAmount;
+    public boolean tb;
 
     //buttons
     private final JButton start;
@@ -25,13 +26,14 @@ public class MainPanel extends JPanel implements MouseListener {
     private final JButton downOne;
     private final JButton upTen;
     private final JButton downTen;
+    private final JButton tieBreak;
 
     public MainPanel(Screen s){
         this.curScreen = s;
         this.bFactory = new buttonFactory();
         this.setLayout(null); //background
         this.coinAmount = 100;
-
+        this.tb = true;
         //create buttons
         start = bFactory.createButton("start",250,400,100,100,this);
         help = bFactory.createButton("help",450,400,100,100,this);
@@ -39,7 +41,7 @@ public class MainPanel extends JPanel implements MouseListener {
         downOne = bFactory.createButton("-1",700,440,90,40,this);
         upTen = bFactory.createButton("+10",800,400,90,40,this);
         downTen = bFactory.createButton("-10",800,440,90,40,this);
-
+        tieBreak = bFactory.createButton("tiebreaker",950,420,180,40,this);
         //add buttons to screen
         this.add(start);
         this.add(help);
@@ -47,6 +49,7 @@ public class MainPanel extends JPanel implements MouseListener {
         this.add(downOne);
         this.add(upTen);
         this.add(downTen);
+        this.add(tieBreak);
 
     }
 
@@ -59,33 +62,34 @@ public class MainPanel extends JPanel implements MouseListener {
     public void paint(Graphics g){
         super.paint(g);
         g.drawString(String.format("%d",coinAmount),600,450);
+        if (this.tb)
+            g.drawString("tiebreak = true",600,300);
+        else
+            g.drawString("tiebreak = false",600,300);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         Object event = e.getSource();
-        if (event == upOne) {//change to increase coin count by 1
+        if (event == upOne) //increase coin count by 1
             this.coinAmount += 1;
-            this.repaint();
-        }
-        else if (event == downOne) { //change to decrease coin count by 1
+        else if (event == downOne)  //decrease coin count by 1
             this.coinAmount -= 1;
-            this.repaint();
-        }
-        else if (event == upTen) {
+        else if (event == upTen)  //inc by 10
             this.coinAmount += 10;
-            this.repaint();
-        }
-        else if (event == downTen) {
+        else if (event == downTen)  //dec by 10
             this.coinAmount -= 10;
-            this.repaint();
-        }
-        else if (event == help)
+        else if (event == help) //help screen
             curScreen.changePanel(new HelpPanel(curScreen));
-        /*
-        e.getSource() = upArrow,downArrow,start, handle each case as needed
-        curScreen.changePanel(new _Panel(curScreen));
-         */
+        else if (event == tieBreak) { //tiebreak coin swap
+            if (tb)
+                this.tb = false;
+            else
+                this.tb = true;
+        }
+        if (this.coinAmount < 5)
+            this.coinAmount = 5; //min needed to "win"
+        this.repaint();
     }
 
     @Override
