@@ -14,14 +14,21 @@ public class GamePanel extends JPanel implements MouseListener {
     public Board b;
     //initial game stats
     public int startingCoins;
-    public boolean tb; //true if player starts with TB
+    public boolean startingTb; //true if player starts with TB
 
 
-    public GamePanel(Screen s) { //init game
-        p1 = new Player();
-        p2 = new Player();
+    public GamePanel(Screen s, int coins, boolean tb) { //init game
+        p1 = new Player(coins);
+        p2 = new Player(coins);
         b = new Board();
         this.s = s;
+        this.startingCoins = coins;
+        this.startingTb = tb;
+        if (tb)
+            p1.flipTB();
+        else
+            p2.flipTB();
+        p2.settoAI(); //assume human vs AI games only for now, can adjust later
     }
 
 

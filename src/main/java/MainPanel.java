@@ -69,7 +69,7 @@ public class MainPanel extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) { //refactor to case statement
+    public void mouseClicked(MouseEvent e) {
         Object event = e.getSource();
         if (event == upOne) //increase coin count by 1
             this.coinAmount += 1;
@@ -82,7 +82,7 @@ public class MainPanel extends JPanel implements MouseListener {
         else if (event == help) //help screen
             curScreen.changePanel(new HelpPanel(curScreen));
         else if (event == start) //begin game
-            curScreen.changePanel(new GamePanel(curScreen));
+            curScreen.changePanel(new GamePanel(curScreen,this.coinAmount,this.tb));
         else if (event == tieBreak) { //tiebreak coin swap
             if (tb)
                 this.tb = false;
