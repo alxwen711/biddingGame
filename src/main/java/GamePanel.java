@@ -16,7 +16,12 @@ public class GamePanel extends JPanel implements MouseListener {
     public int startingCoins;
     public boolean startingTb; //true if player starts with TB
 
-
+    /**
+     * Runs the "game" screen
+     * @param s Visual screen to draw on
+     * @param coins number of starting coins
+     * @param tb determines who starts with tb coin
+     */
     public GamePanel(Screen s, int coins, boolean tb) { //init game
         p1 = new Player(coins);
         p2 = new Player(coins);

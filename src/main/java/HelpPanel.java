@@ -10,11 +10,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 //currently a copy of MainPanel, adjust as needed
 public class HelpPanel extends JPanel implements MouseListener {
     private final Screen curScreen;
     private final JButton back;
     private final buttonFactory bFactory;
+
     public HelpPanel(Screen s){
         this.curScreen = s;
         this.bFactory = new buttonFactory();
@@ -41,7 +43,7 @@ public class HelpPanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Object event = e.getSource();
-        if (event == back) //change to decrease coin count by 1
+        if (event == back) //go back to main menu screen
             curScreen.changePanel(new MainPanel(curScreen));
 
         /*

@@ -69,21 +69,29 @@ public class MainPanel extends JPanel implements MouseListener {
     }
 
     @Override
+    /**
+     * Description of all possible events from buttons:
+     * upX -> increases coin count by X
+     * downX -> decreases coin count by X
+     * help -> swaps to the help screen (see HelpPanel)
+     * start -> begins the game (see GamePanel)
+     * tiebreak -> swaps tiebreaker coin
+     */
     public void mouseClicked(MouseEvent e) {
         Object event = e.getSource();
-        if (event == upOne) //increase coin count by 1
+        if (event == upOne)
             this.coinAmount += 1;
-        else if (event == downOne)  //decrease coin count by 1
+        else if (event == downOne)
             this.coinAmount -= 1;
-        else if (event == upTen)  //inc by 10
+        else if (event == upTen)
             this.coinAmount += 10;
-        else if (event == downTen)  //dec by 10
+        else if (event == downTen)
             this.coinAmount -= 10;
-        else if (event == help) //help screen
+        else if (event == help)
             curScreen.changePanel(new HelpPanel(curScreen));
-        else if (event == start) //begin game
+        else if (event == start)
             curScreen.changePanel(new GamePanel(curScreen,this.coinAmount,this.tb));
-        else if (event == tieBreak) { //tiebreak coin swap
+        else if (event == tieBreak) {
             if (tb)
                 this.tb = false;
             else

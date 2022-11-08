@@ -17,7 +17,10 @@ public class Screen extends JFrame {
     }
 
 
-
+    /**
+     * Changes the current screen to a new one usually on press of a JButton
+     * @param panel new "panel" to change current screen to
+     */
     public void changePanel(JPanel panel){
         panel.setPreferredSize(new Dimension(Screen.width, Screen.height));
         this.getContentPane().removeAll();
@@ -26,7 +29,5 @@ public class Screen extends JFrame {
         this.setVisible(true);
         panel.setFocusable(true);
         panel.requestFocus();
-
-
     }
 }
