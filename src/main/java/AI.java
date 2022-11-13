@@ -3,7 +3,7 @@ import java.lang.Math.*;
 public class AI {
     //class variables
 
-    public int start;
+    public int start; //amount of starting money
     public int p1_money, p2_money;
     public boolean tb; //if true, p1 has tb, else p2 has tb
     /**

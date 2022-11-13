@@ -5,10 +5,16 @@ public class Player {
     //players game stats
     public boolean tb;
     public int coins;
+    public int bid;
+
+    //AI control
+    public AI ai;
 
     public Player(int coins) {
         this.tb = false;
         this.coins = coins;
+        this.bid = coins/10+1;
+        this.ai = null;
     }
 
     /**
@@ -16,6 +22,7 @@ public class Player {
      */
     public void settoAI() {
         this.human = false;
+        this.ai = new AI(coins);
     }
 
     /**
