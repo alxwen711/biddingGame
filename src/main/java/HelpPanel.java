@@ -45,11 +45,6 @@ public class HelpPanel extends JPanel implements MouseListener {
         Object event = e.getSource();
         if (event == back) //go back to main menu screen
             curScreen.changePanel(new MainPanel(curScreen));
-
-        /*
-        e.getSource() = upArrow,downArrow,start, handle each case as needed
-        curScreen.changePanel(new _Panel(curScreen));
-         */
     }
 
     @Override

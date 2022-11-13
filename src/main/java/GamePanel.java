@@ -40,31 +40,6 @@ public class GamePanel extends JPanel implements MouseListener,Runnable {
      * Create all the buttons to be drawn on screen
      */
     public void initButtons() {
-
-    }
-    /**
-     * Runs the "game" screen
-     * @param s Visual screen to draw on
-     * @param coins number of starting coins
-     * @param tb determines who starts with tb coin
-     */
-    public GamePanel(Screen s, int coins, boolean tb) { //init game
-        this.curScreen = s;
-        this.setLayout(null);
-        p1 = new Player(coins);
-        p2 = new Player(coins);
-        b = new Board();
-        this.startingCoins = coins;
-        this.startingTb = tb;
-        this.gameResult = 0;
-        if (tb)
-            p1.tb = true;
-        else
-            p2.tb = true;
-        p2.settoAI(); //assume human vs AI games only for now, can adjust later
-
-        //button initalization
-        this.initButtons();
         this.bFactory = new buttonFactory();
         //create buttons
         int basew = 90;
@@ -83,8 +58,35 @@ public class GamePanel extends JPanel implements MouseListener,Runnable {
         this.add(downTen);
         this.add(timesTwo);
         this.add(divTwo);
+    }
+    /**
+     * Runs the "game" screen
+     * @param s Visual screen to draw on
+     * @param coins number of starting coins
+     * @param tb determines who starts with tb coin
+     */
+    public GamePanel(Screen s, int coins, boolean tb) { //init game
+        this.curScreen = s;
+        this.setLayout(null);
 
-        //background
+        //initialize basic game variables
+        p1 = new Player(coins);
+        p2 = new Player(coins);
+        b = new Board();
+        this.startingCoins = coins;
+        this.startingTb = tb;
+        this.gameResult = 0;
+        //tiebreaker
+        if (tb)
+            p1.tb = true;
+        else
+            p2.tb = true;
+        p2.settoAI(); //assume human vs AI games only for now, can adjust later
+
+        //button initialization
+        this.initButtons();
+
+        //image initialization
         try {
             this.bg = ImageIO.read(new File("src/main/java/images/gameBG.png"));
         } catch (IOException e) {
@@ -115,10 +117,8 @@ public class GamePanel extends JPanel implements MouseListener,Runnable {
     }
 
     //add in method for drawing in coins here?
-    //also add buttons as needed
 
-
-    //methods for visual fill in
+    //methods for visual display
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(this.bg,0,0,Screen.width,Screen.height,null);
@@ -129,7 +129,7 @@ public class GamePanel extends JPanel implements MouseListener,Runnable {
         super.paint(g);
     }
 
-    //methods for game interaction
+    //methods for game interaction via mouse
     @Override
     public void mouseClicked(MouseEvent e) {
 
