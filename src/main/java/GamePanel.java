@@ -1,14 +1,19 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class GamePanel extends JPanel implements MouseListener,Runnable {
 
     //visuals
     private final Screen curScreen;
+    private BufferedImage bg = null;
 
     //game element objects
     public Player p1;
@@ -78,6 +83,13 @@ public class GamePanel extends JPanel implements MouseListener,Runnable {
         this.add(downTen);
         this.add(timesTwo);
         this.add(divTwo);
+
+        //background
+        try {
+            this.bg = ImageIO.read(new File("src/main/java/images/gameBG.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //methods for controlling game logic
@@ -109,7 +121,7 @@ public class GamePanel extends JPanel implements MouseListener,Runnable {
     //methods for visual fill in
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(null,0,0,Screen.width,Screen.height,null);
+        g.drawImage(this.bg,0,0,Screen.width,Screen.height,null);
     }
 
     @Override
